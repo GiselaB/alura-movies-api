@@ -3,6 +3,7 @@ using AutoMapper;
 using FilmesAPI.Models;
 using FilmesAPI.Data;
 using FilmesAPI.Data.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace FilmesAPI.Controllers;
 
@@ -32,7 +33,10 @@ public class CinemaController : ControllerBase
     [HttpGet]
     public IEnumerable<Cinema> RecuperaCinemas()
     {
-        return _context.Cinemas;
+        return _context.Cinemas
+            .Include(x => x.Endereco)
+            .Include(x => x.Gerente)
+            .ToList();
     }
 
     [HttpGet("{id}")]
