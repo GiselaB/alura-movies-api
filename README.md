@@ -12,4 +12,4 @@ WebAPI created using .Net Core and following the [".NET 5 Rest API: Essential Op
 
 `dotnet watch run`
 
-You can find more instructions on the courses linked previously.
+You can find more instructions in the courses linked previously.
