@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220721140339_DbMigration")]
+    [Migration("20220721214037_DbMigration")]
     partial class DbMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -34,13 +34,20 @@ public class SessaoController : ControllerBase
         return Ok(_context.Sessoes
             .Include(x => x.Cinema)
             .Include(x => x.Filme)
+            .Include(x => x.Cinema.Endereco)
+            .Include(x => x.Cinema.Gerente)
             .ToList());
     }
 
     [HttpGet("{id}")]
     public IActionResult RecuperaSessaoPorId(int id)
     {
-        Sessao sessao = _context.Sessoes.FirstOrDefault(sessao => sessao.Id == id);
+        Sessao sessao = _context.Sessoes
+            .Include(x => x.Cinema)
+            .Include(x => x.Filme)
+            .Include(x => x.Cinema.Endereco)
+            .Include(x => x.Cinema.Gerente)
+            .FirstOrDefault(sessao => sessao.Id == id);
         if (sessao != null)
         {
             ReadSessaoDto sessaoDto = _mapper.Map<ReadSessaoDto>(sessao);

@@ -7,7 +7,6 @@ public class Sessao
     [Key]
     [Required]
     public int Id { get; set; }
-    [JsonIgnore]
     public virtual Cinema Cinema { get; set; }  
     public virtual Filme Filme { get; set; }  
     public int CinemaId { get; set; }

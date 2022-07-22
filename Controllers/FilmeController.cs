@@ -29,9 +29,24 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult RecuperarFilmes()
+    public IActionResult RecuperarFilmes([FromQuery] int? classificacaoEtaria = null)
     {
-        return Ok(_context.Filmes);
+        List<Filme> filmes;
+
+        if (classificacaoEtaria == null){
+            filmes = _context.Filmes.ToList();
+        } else {
+            filmes = _context
+            .Filmes.Where(filme => filme.ClassificacaoEtaria <= classificacaoEtaria)
+            .ToList();
+        }
+        
+        if (filmes != null)
+        {
+            List<ReadFilmeDto> filmesDto = _mapper.Map<List<ReadFilmeDto>>(filmes);
+            return Ok(filmesDto);
+        }
+        return NotFound();
     }
 
     [HttpGet("{id}")]

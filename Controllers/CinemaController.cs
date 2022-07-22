@@ -31,18 +31,37 @@ public class CinemaController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Cinema> RecuperaCinemas()
+    public IActionResult RecuperaCinemas([FromQuery] string nomeDoFilme)
     {
-        return _context.Cinemas
+        List<Cinema> cinemas = _context.Cinemas
             .Include(x => x.Endereco)
             .Include(x => x.Gerente)
             .ToList();
+
+        if (cinemas == null)
+        {
+            return NotFound();
+        }
+
+        if (!string.IsNullOrEmpty(nomeDoFilme))
+        {
+            IEnumerable<Cinema> query = from cinema in cinemas
+                where cinema.Sessoes.Any(sessao =>
+                sessao.Filme.Titulo == nomeDoFilme)
+                select cinema;
+
+            cinemas = query.ToList();
+        }
+
+        List<ReadCinemaDto> cinemasDto = _mapper.Map<List<ReadCinemaDto>>(cinemas);
+        return Ok(cinemasDto);
     }
 
     [HttpGet("{id}")]
     public IActionResult RecuperaCinemasPorId(int id)
     {
-        Cinema cinema = _context.Cinemas.FirstOrDefault(cinema => cinema.Id == id);
+        Cinema cinema = _context.Cinemas.Include(x => x.Endereco)
+            .Include(x => x.Gerente).FirstOrDefault(cinema => cinema.Id == id);
         if (cinema != null)
         {
             ReadCinemaDto cinemaDto = _mapper.Map<ReadCinemaDto>(cinema);
