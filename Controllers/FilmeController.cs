@@ -25,6 +25,7 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "admin, regular", Policy = "IdadeMinima")]
     public IActionResult RecuperaFilmes([FromQuery] int? classificacaoEtaria = null)
     {
         List<ReadFilmeDto> filmesDto = _filmeService.RecuperaFilmes(classificacaoEtaria);
