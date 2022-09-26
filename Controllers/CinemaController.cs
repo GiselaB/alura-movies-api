@@ -1,7 +1,6 @@
+using Filmes.Services;
+using Filmes.Services.Data.Dtos.Cinema;
 using Microsoft.AspNetCore.Mvc;
-using FluentResults;
-using FilmesAPI.Data.Dtos;
-using FilmesAPI.Services;
 
 namespace FilmesAPI.Controllers;
 
@@ -9,23 +8,23 @@ namespace FilmesAPI.Controllers;
 [Route("[controller]")]
 public class CinemaController : ControllerBase
 {
-    private CinemaService _cinemaService;
-    public CinemaController(CinemaService cinemaService)
+    private readonly ICinemaService _cinemaService;
+    public CinemaController(ICinemaService cinemaService)
     {
         _cinemaService = cinemaService;
     }
-
+    
     [HttpPost]
     public IActionResult AdicionaCinema([FromBody] CreateCinemaDto cinemaDto)
     {
-        ReadCinemaDto readDto = _cinemaService.AdicionaCinema(cinemaDto);
-        return CreatedAtAction(nameof(RecuperaCinemasPorId), new { Id = readDto.Id }, readDto);
+        var readDto = _cinemaService.AdicionaCinema(cinemaDto);
+        return CreatedAtAction(nameof(RecuperaCinemasPorId), new { readDto.Id }, readDto);
     }
 
     [HttpGet]
     public IActionResult RecuperaCinemas([FromQuery] string nomeDoFilme)
     {
-        List<ReadCinemaDto> cinemasDto = _cinemaService.RecuperaCinemas(nomeDoFilme);
+        var cinemasDto = _cinemaService.RecuperaCinemas(nomeDoFilme);
         if (cinemasDto != null) return Ok(cinemasDto);
         return NotFound();
     }
@@ -33,7 +32,7 @@ public class CinemaController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult RecuperaCinemasPorId(int id)
     {
-        ReadCinemaDto readDto = _cinemaService.RecuperaCinemaPorId(id);
+        var readDto = _cinemaService.RecuperaCinemaPorId(id);
         if (readDto != null) return Ok(readDto);
         return NotFound();
     }
@@ -41,7 +40,7 @@ public class CinemaController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult AtualizaCinema(int id, [FromBody] UpdateCinemaDto cinemaDto)
     {
-        Result resultado = _cinemaService.AtualizaCinema(id, cinemaDto);
+        var resultado = _cinemaService.AtualizaCinema(id, cinemaDto);
         if (resultado.IsFailed) return NotFound();
         return NoContent();
     }
@@ -50,7 +49,7 @@ public class CinemaController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeletaCinema(int id)
     {
-        Result resultado = _cinemaService.DeletaCinema(id);
+        var resultado = _cinemaService.DeletaCinema(id);
         if (resultado.IsFailed) return NotFound();
         return NoContent();
     }

@@ -1,7 +1,7 @@
+using Filmes.Services;
+using Filmes.Services.Data.Dtos.Endereco;
 using Microsoft.AspNetCore.Mvc;
 using FluentResults;
-using FilmesAPI.Models;
-using FilmesAPI.Services;
 
 namespace FilmesAPI.Controllers;
 
@@ -9,15 +9,15 @@ namespace FilmesAPI.Controllers;
 [Route("[controller]")]
 public class EnderecoController : ControllerBase
 {
-    private EnderecoService _enderecoService;
-    public EnderecoController(EnderecoService enderecoService)
+    private readonly IEnderecoService _enderecoService;
+    public EnderecoController(IEnderecoService enderecoService)
     {
         _enderecoService = enderecoService;
     }
     [HttpPost]
     public IActionResult AdicionaEndereco([FromBody] CreateEnderecoDto enderecoDto)
     {
-        ReadEnderecoDto readDto = _enderecoService.AdicionaEndereco(enderecoDto);
+        var readDto = _enderecoService.AdicionaEndereco(enderecoDto);
         return CreatedAtAction(nameof(RecuperaEnderecoPorId), new { Id = readDto.Id }, readDto);
     }
 
@@ -32,7 +32,8 @@ public class EnderecoController : ControllerBase
     public IActionResult RecuperaEnderecoPorId(int id)
     {
         ReadEnderecoDto enderecoDto = _enderecoService.RecuperaEnderecoPorId(id);
-        if (enderecoDto != null) return Ok(enderecoDto);
+        if (enderecoDto != null)
+            return Ok(enderecoDto);
         return NotFound();
     }
 
@@ -40,7 +41,8 @@ public class EnderecoController : ControllerBase
     public IActionResult AtualizaEndereco(int id, [FromBody] UpdateEnderecoDto enderecoDto)
     {
         Result resultado = _enderecoService.AtualizaEndereco(id, enderecoDto);
-        if (resultado.IsFailed) return NotFound();
+        if (resultado.IsFailed)
+            return NotFound();
         return NoContent();
     }
 
@@ -49,7 +51,8 @@ public class EnderecoController : ControllerBase
     public IActionResult DeletaEndereco(int id)
     {
         Result resultado = _enderecoService.DeletaEndereco(id);
-        if (resultado.IsFailed) return NotFound();
+        if (resultado.IsFailed)
+            return NotFound();
         return NoContent();
     }
 

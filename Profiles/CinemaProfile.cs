@@ -1,6 +1,6 @@
 using AutoMapper;
+using Filmes.Services.Data.Dtos.Cinema;
 using FilmesAPI.Models;
-using FilmesAPI.Data.Dtos;
 
 namespace FilmesAPI.Profiles;
 public class CinemaProfile : Profile

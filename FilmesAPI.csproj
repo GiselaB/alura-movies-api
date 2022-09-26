@@ -22,4 +22,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Filmes.Domain\Filmes.Domain.csproj" />
+    <ProjectReference Include="..\Filmes.Services\Filmes.Services.csproj" />
+  </ItemGroup>
+
 </Project>

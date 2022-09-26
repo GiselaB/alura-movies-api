@@ -1,7 +1,7 @@
+using Filmes.Services;
+using Filmes.Services.Data.Dtos.Gerente;
 using Microsoft.AspNetCore.Mvc;
 using FluentResults;
-using FilmesAPI.Services;
-using FilmesAPI.Models;
 
 namespace FilmesAPI.Controllers;
 
@@ -9,8 +9,8 @@ namespace FilmesAPI.Controllers;
 [Route("[controller]")]
 public class GerenteController : ControllerBase
 {
-    private GerenteService _gerenteService;
-    public GerenteController(GerenteService gerenteService)
+    private readonly IGerenteService _gerenteService;
+    public GerenteController(IGerenteService gerenteService)
     {
         _gerenteService = gerenteService;
     }

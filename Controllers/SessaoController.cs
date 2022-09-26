@@ -1,7 +1,8 @@
+using Filmes.Services;
+using Filmes.Services.Data.Dtos.Sessao;
+using Filmes.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using FluentResults;
 using FilmesAPI.Models;
-using FilmesAPI.Services;
 
 namespace FilmesAPI.Controllers;
 
@@ -9,8 +10,8 @@ namespace FilmesAPI.Controllers;
 [Route("[controller]")]
 public class SessaoController : ControllerBase
 {
-    private SessaoService _sessaoService;
-    public SessaoController(SessaoService sessaoService)
+    private readonly ISessaoService _sessaoService;
+    public SessaoController(ISessaoService sessaoService)
     {
         _sessaoService = sessaoService;
     }
@@ -33,7 +34,7 @@ public class SessaoController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult RecuperaSessaoPorId(int id)
     {
-        ReadSessaoDto sessaoDto = _sessaoService.RecuperaSessaoPorId(id);
+        var sessaoDto = _sessaoService.RecuperaSessaoPorId(id);
         if (sessaoDto != null) return Ok(sessaoDto);
         return NotFound();
     }
@@ -41,7 +42,7 @@ public class SessaoController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult AtualizaSessao(int id, [FromBody] UpdateSessaoDto sessaoDto)
     {
-        Result resultado = _sessaoService.AtualizaSessao(id, sessaoDto);
+        var resultado = _sessaoService.AtualizaSessao(id, sessaoDto);
         if (resultado.IsFailed) return NotFound();
         return NoContent();
     }
@@ -49,7 +50,7 @@ public class SessaoController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeletaSessao(int id)
     {
-        Result resultado = _sessaoService.DeletaSessao(id);
+        var resultado = _sessaoService.DeletaSessao(id);
         if (resultado.IsFailed) return NotFound();
         return NoContent();
     }
