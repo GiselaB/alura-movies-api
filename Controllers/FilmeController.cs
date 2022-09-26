@@ -1,7 +1,7 @@
-using Filmes.Services;
 using Filmes.Services.Data.Dtos.Filme;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Filmes.Services.Interfaces;
 
 namespace FilmesAPI.Controllers;
 

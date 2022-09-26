@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Filmes.Services;
-using Filmes.Services.Data;
 using Filmes.Services.Interfaces;
 using FilmesAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using Filmes.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,6 @@ using Filmes.Services;
 using Filmes.Services.Data.Dtos.Sessao;
 using Filmes.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using FilmesAPI.Models;
 
 namespace FilmesAPI.Controllers;
 
@@ -20,8 +19,8 @@ public class SessaoController : ControllerBase
     public IActionResult AdicionaSessao(CreateSessaoDto sessaoDto)
     {
         // problema ao mapear para ReadSessaoDto
-        Sessao sessao = _sessaoService.AdicionaSessao(sessaoDto);
-        return CreatedAtAction(nameof(RecuperaSessaoPorId), new { Id = sessao.Id }, sessao);
+        var sessao = _sessaoService.AdicionaSessao(sessaoDto);
+        return CreatedAtAction(nameof(RecuperaSessaoPorId), new { sessao.Id }, sessao);
     }
 
     [HttpGet]

@@ -1,5 +1,5 @@
-using Filmes.Services;
 using Filmes.Services.Data.Dtos.Cinema;
+using Filmes.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FilmesAPI.Controllers;

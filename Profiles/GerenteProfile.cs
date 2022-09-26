@@ -1,6 +1,6 @@
 using AutoMapper;
+using Filmes.Domain.Models;
 using Filmes.Services.Data.Dtos.Gerente;
-using FilmesAPI.Models;
 
 namespace FilmesAPI.Profiles;
 public class GerenteProfile : Profile

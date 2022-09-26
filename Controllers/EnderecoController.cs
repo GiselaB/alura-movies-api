@@ -1,7 +1,7 @@
-using Filmes.Services;
 using Filmes.Services.Data.Dtos.Endereco;
 using Microsoft.AspNetCore.Mvc;
 using FluentResults;
+using Filmes.Services.Interfaces;
 
 namespace FilmesAPI.Controllers;
 

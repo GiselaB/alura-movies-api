@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Filmes.Domain\Filmes.Domain.csproj" />
+    <ProjectReference Include="..\Filmes.Infra\Filmes.Infra.csproj" />
     <ProjectReference Include="..\Filmes.Services\Filmes.Services.csproj" />
   </ItemGroup>
 
