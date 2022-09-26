@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Filmes.Services;
 using Filmes.Services.Interfaces;
 using FilmesAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Filmes.Infra;
+using Filmes.Services.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
