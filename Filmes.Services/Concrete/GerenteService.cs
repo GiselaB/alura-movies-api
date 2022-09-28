@@ -9,8 +9,8 @@ namespace Filmes.Services.Concrete;
 
 public class GerenteService : IGerenteService
 {
-    private AppDbContext _context;
-    private IMapper _mapper;
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     public GerenteService(AppDbContext context, IMapper mapper)
     {
         _context = context;
@@ -32,12 +32,10 @@ public class GerenteService : IGerenteService
     public ReadGerenteDto RecuperaGerentePorId(int id)
     {
         Gerente gerente = _context.Gerentes.FirstOrDefault(gerente => gerente.Id == id);
-        if (gerente != null)
-        {
-            return _mapper.Map<ReadGerenteDto>(gerente);
-        }
 
-        return null;
+        return gerente != null 
+            ? _mapper.Map<ReadGerenteDto>(gerente) 
+            : null;
     }
     public Result AtualizaGerente(int id, UpdateGerenteDto gerenteDto)
     {

@@ -9,8 +9,8 @@ namespace Filmes.Services.Concrete;
 
 public class SessaoService : ISessaoService
 {
-    private AppDbContext _context;
-    private IMapper _mapper;
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     public SessaoService(AppDbContext context, IMapper mapper)
     {
         _context = context;
@@ -32,13 +32,10 @@ public class SessaoService : ISessaoService
     public ReadSessaoDto RecuperaSessaoPorId(int id)
     {
         Sessao sessao = _context.Sessoes.FirstOrDefault(sessao => sessao.Id == id);
-        if (sessao != null)
-        {
-            ReadSessaoDto sessaoDto = _mapper.Map<ReadSessaoDto>(sessao);
-            return sessaoDto;
-        }
 
-        return null;
+        return sessao != null 
+            ? _mapper.Map<ReadSessaoDto>(sessao) 
+            : null;
     }
     public Result AtualizaSessao(int id, UpdateSessaoDto sessaoDto)
     {

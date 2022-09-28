@@ -9,8 +9,8 @@ namespace Filmes.Services.Concrete;
 
 public class FilmeService : IFilmeService
 {
-    private AppDbContext _context;
-    private IMapper _mapper;
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     public FilmeService(AppDbContext context, IMapper mapper)
     {
         _context = context;
@@ -52,13 +52,10 @@ public class FilmeService : IFilmeService
     public ReadFilmeDto RecuperaFilmePorId(int id)
     {
         Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-        if (filme != null)
-        {
-            ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
-            return filmeDto;
-        }
 
-        return null;
+        return filme != null 
+            ? _mapper.Map<ReadFilmeDto>(filme) 
+            : null;
     }
     public Result AtualizaFilme(int id, UpdateFilmeDto filmeDto)
     {

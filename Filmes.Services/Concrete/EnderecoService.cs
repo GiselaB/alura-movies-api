@@ -9,8 +9,8 @@ namespace Filmes.Services.Concrete;
 
 public class EnderecoService : IEnderecoService
 {
-    private AppDbContext _context;
-    private IMapper _mapper;
+    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     public EnderecoService(AppDbContext context, IMapper mapper)
     {
         _context = context;
@@ -32,13 +32,10 @@ public class EnderecoService : IEnderecoService
     public ReadEnderecoDto RecuperaEnderecoPorId(int id)
     {
         Endereco endereco = _context.Enderecos.FirstOrDefault(endereco => endereco.Id == id);
-        if (endereco != null)
-        {
-            ReadEnderecoDto enderecoDto = _mapper.Map<ReadEnderecoDto>(endereco);
-            return enderecoDto;
-        }
 
-        return null;
+        return endereco != null 
+            ? _mapper.Map<ReadEnderecoDto>(endereco) 
+            : null;
     }
     public Result AtualizaEndereco(int id, UpdateEnderecoDto enderecoDto)
     {
