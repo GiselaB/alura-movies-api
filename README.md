@@ -4,6 +4,8 @@ WebAPI created using .Net Core and following the [".NET 5 Rest API: Essential Op
 
 - This project uses .NET 6 and MySQL 8 unlike the courses.
 
+- This project was refactored according to the principles of the SOLID pattern, following, among others, the ["SOLID with C#: Principles of Object-Oriented Programming"](https://cursos.alura.com.br/course/solid-csharp-principios-orientacao-a-objetos) course.
+
 ### Build
 
 `dotnet build`
