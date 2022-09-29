@@ -15,7 +15,6 @@ builder.Services.AddDbContext<AppDbContext>(opts =>
        .UseMySql(
             builder
                 .Configuration
-                // TODO: Mover para appsettings.json
                 .GetConnectionString("FilmeConnection"),
                 new MySqlServerVersion(new Version(8, 0))
             )
@@ -71,6 +70,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
 }
 
 app.UseHttpsRedirection();
